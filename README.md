@@ -31,3 +31,6 @@ cfg/mask.names      -> classificaiton classes names
 
 ## remember to use cv2_imshow(_) instead of cv2.imshow(_,_)
 
+
+## Deal with the My Drive space sucks issue
+!ln -s /content/drive/My\ Drive /content/mydirver 
