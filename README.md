@@ -49,7 +49,7 @@ voc_label.py    --> to create box label(.txt) and train, test.txt
 MakeText.py      --> to create 2007_train.txt ,2007_test.txt which contains abs path to images!!  And these will in the path "darknet/scripts"
 
 
-### Rf you r using windows please, use ``dos2unix [file path]`` to convert so that it will not throw out 'could not open file' error
+### If you r using windows please, use ``dos2unix [file path]`` to convert so that it will not throw out 'could not open file' error
 
 ## Remember to use cv2_imshow(_) instead of cv2.imshow(_,_)
 
