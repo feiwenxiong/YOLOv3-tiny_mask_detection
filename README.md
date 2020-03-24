@@ -6,7 +6,7 @@
 ### mount your google drive to your colab notebook
 
 ### Because a white space in the path of "My Drive", this will cause "could not open file " error
->>so we need to use 
+>>so we need to use below,
 
 Deal with the My Drive space sucks issue
 !ln -s /content/drive/My\ Drive /content/mydirver 
