@@ -56,3 +56,65 @@ MakeText.py      --> to create 2007_train.txt ,2007_test.txt which contains abs 
 
 
 
+
+
+# 借助项目开源工具yolov3
+there exists several path problem which should not be a problem, i will introduce in the code.
+yolo/darknet
+
+解压后，如果用gpu 就makefile里开头那修改GPU=1一下，如果是cpu那就直接make
+eg:
+GPU=0
+CUDNN=0
+
+1.数据集需求voc格式 和其他需求
+cfg 文件夹中包含着不同版本网络的网络参数以及.data（类参数和地址） 和 .names（类名字）,本项目使用yolov3-tiny.clg， mask_set.data, mask_set.names
+
+scripts 文件夹中需要添加你的VOC数据文件夹 和修改V0C_label.py（from .xml产生 label.txt 必备格式)以及MakeText.py
+
+VOCdevkit里的VOC2007
+（有 1.Annotations（xml格式）  2.Imagesets（/main中含有MakeText.py后的train test.text）  3.JPEGImages（纯图片）)
+
+backup or results 用来存储 weights
+
+
+2.detect函数输出格式解释：
+eg:
+ [('印章', 0.9983074069023132, (912.6295776367188, 395.174072265625, 213.7032928466797, 206.85720825195312)), ('国徽', 0.9921208024024963, (297.0399475097656, 1426.3948974609375, 222.11207580566406, 225.3359832763672)), ('印章', 0.9893943667411804, (740.3536376953125, 1396.102783203125, 212.9912109375, 202.95053100585938))]
+
+其中：
+r[0]=('狗', 0.9983074069023132, (912.6295776367188, 395.174072265625, 213.7032928466797, 206.85720825195312))
+
+
+3.预测视频就输入以下：
+./darknet det.py --help
+
+code:
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='yolo3-tiny? for detection')
+    #parser.add_argument('--image', '-I', help='image 属性，非必要参数,但是有默认值', default=1)
+    parser.add_argument('--out', help='out 属性，非必要参数，但是有默认值',default ="/home/linwu/Desktop/yolo/darknet/video/video_out")
+    parser.add_argument('--path',  help='path 属性，必要参数,输入需要detect地址', required=True)
+    parser.add_argument('--cfg', help = 'such as yolov3.cfg',required=True)
+    parser.add_argument('--weights', help = 'such as yolov3.weights',required=True)
+    parser.add_argument('--meta', help = 'such as mask.data',required=True)
+    args = parser.parse_args()
+
+
+
+4.预测图片：
+/darknet detect [配置地址]  [权重地址]  [图片地址]
+
+eg: ./darknet detect cfg/yolov3-tiny.cfg yolov3-tiny.weights data/dog.jpg
+
+5. 如何训练：
+
+主要修改cfg配置文件头部的 batch ,subdivision , leaning rate值
+./darknet detector train [cfg] [meta] [weights] 
+
+eg: /darknet detector train cfg/voc.data cfg/yolov3-voc.cfg darknet53.conv.74
+
+6. 要用GPU的话，在makefile最前面找到设为1
+
+
+
