@@ -80,16 +80,18 @@ backup or results 用来存储 weights
 
 2.detect函数输出格式解释：
 eg:
- [('印章', 0.9983074069023132, (912.6295776367188, 395.174072265625, 213.7032928466797, 206.85720825195312)), ('国徽', 0.9921208024024963, (297.0399475097656, 1426.3948974609375, 222.11207580566406, 225.3359832763672)), ('印章', 0.9893943667411804, (740.3536376953125, 1396.102783203125, 212.9912109375, 202.95053100585938))]
+ ```[('印章', 0.9983074069023132, (912.6295776367188, 395.174072265625, 213.7032928466797, 206.85720825195312)), ('国徽', 0.9921208024024963, (297.0399475097656, 1426.3948974609375, 222.11207580566406, 225.3359832763672)), ('印章', 0.9893943667411804, (740.3536376953125, 1396.102783203125, 212.9912109375, 202.95053100585938))]```
 
 其中：
-r[0]=('狗', 0.9983074069023132, (912.6295776367188, 395.174072265625, 213.7032928466797, 206.85720825195312))
+```r[0]=('狗', 0.9983074069023132, (912.6295776367188, 395.174072265625, 213.7032928466797, 206.85720825195312))```
 
 
 3.预测视频就输入以下：
-./darknet det.py --help
+```./darknet det.py --help```
+
 
 code:
+```
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='yolo3-tiny? for detection')
     #parser.add_argument('--image', '-I', help='image 属性，非必要参数,但是有默认值', default=1)
@@ -99,20 +101,21 @@ if __name__ == "__main__":
     parser.add_argument('--weights', help = 'such as yolov3.weights',required=True)
     parser.add_argument('--meta', help = 'such as mask.data',required=True)
     args = parser.parse_args()
-
+```
 
 
 4.预测图片：
+```
 /darknet detect [配置地址]  [权重地址]  [图片地址]
 
 eg: ./darknet detect cfg/yolov3-tiny.cfg yolov3-tiny.weights data/dog.jpg
-
+```
 5. 如何训练：
 
 主要修改cfg配置文件头部的 batch ,subdivision , leaning rate值
-./darknet detector train [cfg] [meta] [weights] 
+```./darknet detector train [cfg] [meta] [weights] ```
 
-eg: /darknet detector train cfg/voc.data cfg/yolov3-voc.cfg darknet53.conv.74
+eg:``` /darknet detector train cfg/voc.data cfg/yolov3-voc.cfg darknet53.conv.74```
 
 6. 要用GPU的话，在makefile最前面找到设为1
 
